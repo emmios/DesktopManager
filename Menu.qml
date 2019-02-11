@@ -1,13 +1,14 @@
-import QtQuick 2.7
-import QtQuick.Controls 1.2
+import QtQuick 2.9
+import QtQuick.Controls 1.4
 import "util.js" as Util
 
 
 ApplicationWindow {
     id: menu
+    title: "Neon Painel"
     width: 134
     height: 40 * 6
-    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup |Qt.WindowActive
+    flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup
     color: "transparent"
     visible: false
 
@@ -102,7 +103,10 @@ ApplicationWindow {
 
                                     if(mouse.button & Qt.LeftButton) {
 
-                                        if (name == "Abrir Terminal") { }
+                                        if (name == "Abrir Terminal") {
+                                            Context.terminal()
+                                        }
+
                                         if (name == "Organizar") {
                                             Util.order()
                                         }

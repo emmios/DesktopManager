@@ -1,6 +1,7 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
+
 #include <QObject>
 #include <QString>
 #include <QFile>
@@ -20,6 +21,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QWindow>
+#include <QProcess>
+#include <QSettings>
 
 
 #include "xlibutil.h"
@@ -31,13 +34,15 @@ class Context : public QObject
     Q_OBJECT
 
 public:
+    Q_INVOKABLE QString getImgBackground();
     Q_INVOKABLE void copy(QString from,QString to);
     Q_INVOKABLE QStringList backgrouds(QString path);
     Q_INVOKABLE void backgroundChange(QString bg);
     Q_INVOKABLE void allDesktop();
+    Q_INVOKABLE void terminal();
     Q_INVOKABLE int mouseX();
     Q_INVOKABLE int mouseY();
-    QWindow *window;
+    //QWindow *window;
     QQmlApplicationEngine *engine;
 
 private:

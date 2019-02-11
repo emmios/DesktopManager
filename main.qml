@@ -1,6 +1,6 @@
-import QtQuick 2.7
-import QtQuick.Window 2.2
-import QtQuick.Controls 1.2
+import QtQuick 2.9
+import QtQuick.Window 2.3
+import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 import "./Components"
 import "util.js" as Util
@@ -15,10 +15,10 @@ App {
     x: 0
     y: 0
     width: Screen.width
-    height: Screen.height - 0.1
+    height: Screen.height
     color: "transparent"
-    title: qsTr("Desktop Manager")
-    flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint
+    title: qsTr("Neon Painel")
+    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint
 
     property bool mouseDown: true
     property int posx: 0
@@ -278,7 +278,7 @@ App {
             fillMode: Image.PreserveAspectCrop
             antialiasing: true
             anchors.fill: parent
-            source: "file:///usr/share/backgrounds/Lake Tahoe Colors.jpg"
+            source: Context.getImgBackground() //"file:///usr/share/backgrounds/Lake Tahoe Colors.jpg"
         }
 
 //        FastBlur {
@@ -299,7 +299,7 @@ App {
     Timer {
         id: time
         running: false
-        interval: 3000
+        interval: 6000
         onTriggered: {
 //            var comp = Qt.createComponent("Menu.qml")
 //            contextMenu = comp.createObject(main)

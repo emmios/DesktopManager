@@ -1,5 +1,12 @@
 #include "context.h"
 
+QString Context::getImgBackground()
+{
+    QDir dir;
+    QString path = dir.homePath() + "/.config/Synth/desktop/";
+    QSettings settings(path + "settings.txt", QSettings::NativeFormat);
+    return settings.value("background").toString();
+}
 
 void Context::copy(QString from,QString to)
 {
@@ -66,15 +73,26 @@ void Context::backgroundChange(QString bg)
     {
         iface.call("BgConnect", bg);
     }
+
+    QDir dir;
+    QString path = dir.homePath() + "/.config/Synth/desktop/";
+    QSettings settings(path + "settings.txt", QSettings::NativeFormat);
+    settings.setValue("background", bg);
 }
 
 void Context::allDesktop()
 {
-    //util.openboxChange(window->winId(), ALL_DESKTOPS);
-    //util.xchange(window->winId(), "_NET_WM_WINDOW_TYPE_DESKTOP");
+//    util.openboxChange(window->winId(), ALL_DESKTOPS);
+//    util.xchange(window->winId(), "_NET_WM_WINDOW_TYPE_DESKTOP");
     QObject *obj = this->engine->rootObjects().first();
     QWindow *window = qobject_cast<QWindow *>(obj);
 
     util.openboxChange(window->winId(), ALL_DESKTOPS);
     util.xchange(window->winId(), "_NET_WM_WINDOW_TYPE_DESKTOP");
+}
+
+void Context::terminal()
+{
+    QProcess *process = new QProcess();
+    process->start("xfce4-terminal");
 }
