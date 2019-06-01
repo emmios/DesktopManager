@@ -6,13 +6,16 @@ CONFIG += c++14
 SOURCES += main.cpp \
     context.cpp \
     xlibutil.cpp \
-    qquickimage.cpp
+    qquickimage.cpp \
+    backgroundconnect.cpp
 
 HEADERS += context.h \
     xlibutil.h \
-    qquickimage.h
+    qquickimage.h \
+    backgroundconnect.h
 
 RESOURCES += qml.qrc \
+    resources.qrc \
     components.qrc
 
 LIBS += -lX11

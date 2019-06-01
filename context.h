@@ -40,9 +40,10 @@ public:
     Q_INVOKABLE void backgroundChange(QString bg);
     Q_INVOKABLE void allDesktop();
     Q_INVOKABLE void terminal();
+    Q_INVOKABLE void wallpapers();
     Q_INVOKABLE int mouseX();
     Q_INVOKABLE int mouseY();
-    //QWindow *window;
+    Q_INVOKABLE QString color();
     QQmlApplicationEngine *engine;
 
 private:

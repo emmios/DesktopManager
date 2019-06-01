@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/loading.gif</file>
         <file>main.qml</file>
         <file>Rectangle1.qml</file>
         <file>util.js</file>

@@ -2,6 +2,8 @@
 * @AUTHOR SHENOISZ
 */
 
+var color = "#4a70f5"
+
 
 function reset() {
 
@@ -45,7 +47,7 @@ function selectAll() {
     for (var i = 0; i < rect.length; i++) {
         rect[i].z = 1
         rect[i].opacity = 0.7
-        rect[i].color = "#4a70f5"
+        rect[i].color = color
         main.colision_items.push(rect[i])
     }
     main.mult = true
@@ -102,7 +104,7 @@ function selectItem() {
             main.rected = rect[i]
             rect[i].z = 1
             rect[i].opacity = 0.7
-            rect[i].color = "#4a70f5"
+            rect[i].color = color
             selected = true
             break;
         }
@@ -146,7 +148,7 @@ function conlision(type, x , y, mouseX, mouseY) {
             if (x < (rect[i].x + rect[i].width) && y < (rect[i].y + rect[i].height) && mouseX > rect[i].x && mouseY > rect[i].y) {
                 rect[i].z = 1
                 rect[i].opacity = 0.7
-                rect[i].color = "#4a70f5"
+                rect[i].color = color
                 main.colision_items.push(rect[i])
 
             } else {
@@ -165,7 +167,7 @@ function conlision(type, x , y, mouseX, mouseY) {
             if (x > rect[i].x && y > rect[i].y && mouseX < (rect[i].x + rect[i].width) && mouseY < (rect[i].y + rect[i].height)) {
                 rect[i].z = 1
                 rect[i].opacity = 0.7
-                rect[i].color = "#4a70f5"
+                rect[i].color = color
                 main.colision_items.push(rect[i])
 
             } else {
@@ -185,7 +187,7 @@ function conlision(type, x , y, mouseX, mouseY) {
             if (x < (rect[i].x + rect[i].width)  && y > rect[i].y && mouseX > rect[i].x && mouseY < (rect[i].y + rect[i].height)) {
                 rect[i].z = 1
                 rect[i].opacity = 0.7
-                rect[i].color = "#4a70f5"
+                rect[i].color = color
                 main.colision_items.push(rect[i])
 
             } else {
@@ -204,7 +206,7 @@ function conlision(type, x , y, mouseX, mouseY) {
             if (x > rect[i].x && y < (rect[i].y + rect[i].height) && mouseX < (rect[i].x + rect[i].width) && mouseY > rect[i].y) {
                 rect[i].z = 1
                 rect[i].opacity = 0.7
-                rect[i].color = "#4a70f5"
+                rect[i].color = color
                 main.colision_items.push(rect[i])
 
             } else {

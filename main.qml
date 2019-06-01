@@ -1,13 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Window 2.3
-import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 import "./Components"
 import "util.js" as Util
 
 
 App {
-
     id: main
     visible: true
     //width: 640
@@ -17,8 +15,8 @@ App {
     width: Screen.width
     height: Screen.height
     color: "transparent"
-    title: qsTr("Neon Painel")
-    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint
+    title: qsTr("Synth-Desktop")
+    flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint | Qt.WA_X11NetWmWindowTypeDesktop
 
     property bool mouseDown: true
     property int posx: 0
@@ -34,17 +32,20 @@ App {
     property var rected
     property bool selected: false
     property bool mult: false
-    property var contextMenu
-    property string path: "/usr/share/backgrounds/"
+    property var contextMenu: null
 
-    property alias imageBg: image
 
     onActiveChanged: {
         if (!active) {
-            if (contextMenu !== undefined) {
+            if (contextMenu !== null) {
                 contextMenu.visible = false
             }
         }
+    }
+
+    Rectangle {
+        color: "#333"
+        anchors.fill: parent
     }
 
     DropArea {
@@ -66,13 +67,13 @@ App {
                 //console.log ("onExited");
             }
     }
-
+/*
     Action {
             shortcut: "Ctrl+A"
             enabled: true
             onTriggered: Util.selectAll()
    }
-
+*/
     Rectangle {
         id: rectangle
         z: 1
@@ -115,9 +116,8 @@ App {
             if (mouse.button & Qt.RightButton) {
 
                 btnLeft = false
-                //item1.visible = true
 
-                if (contextMenu === undefined) {
+                if (contextMenu === null) {
                     var comp = Qt.createComponent("Menu.qml")
                     contextMenu = comp.createObject(main)
                 } else {
@@ -136,32 +136,17 @@ App {
                     contextMenu.y = mouseY
                 }
 
-                //contextMenu = window
-                //window.show()
                 contextMenu.visible = true
             }
 
             if (mouse.button & Qt.LeftButton) {
-                if (contextMenu !== undefined) {
+                if (contextMenu !== null) {
                     contextMenu.visible = false
                 }
-                //item1.visible = false
+
                 btnLeft = true
             }
         }
-
-//        onDoubleClicked: {
-
-//            if(btnLeft) {
-//                if (fullscreen) {
-//                    main.visibility = "FullScreen"
-//                    fullscreen = false
-//                } else {
-//                    main.visibility = "Windowed"
-//                    fullscreen = true
-//                }
-//            }
-//        }
 
         onPressedChanged: {
 
@@ -270,30 +255,34 @@ App {
 
             }
         }
+    }
 
-        Image {
-            id: image
-            smooth: true
-            z: 0
-            fillMode: Image.PreserveAspectCrop
-            antialiasing: true
+    Item {
+        id: content
+        anchors.fill: parent
+        property alias load: load
+
+        Loader {
+            id: load
             anchors.fill: parent
-            source: Context.getImgBackground() //"file:///usr/share/backgrounds/Lake Tahoe Colors.jpg"
+            property string image: Context.getImgBackground()
+            property string oldImage: ""
+            source: "file:///usr/share/synth/desktop/plugins/start/init.qml"
+            onSourceChanged: {
+                oldImage = image
+            }
         }
+    }
 
-//        FastBlur {
-//            id: fastBlur
-//            anchors.fill: parent
-//            source: image
-//            radius: 40
-//        }
+    Item {
+        id: item2
+        anchors.fill: parent
+        z: 0
+    }
 
-        Item {
-            id: item2
-            anchors.fill: parent
-            z: 0
-        }
-
+    function wallpaperRefresh(bg) {
+        content.load.image = bg
+        content.load.setSource("file:///usr/share/synth/desktop/plugins/effect-wallpaper/fade.qml")
     }
 
     Timer {
@@ -314,16 +303,18 @@ App {
 //            }
 
             //main.requestActivate()
+            flags = Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint
+            Context.backgroundChange(Context.getImgBackground())
+            var comp = Qt.createComponent("Menu.qml")
+            contextMenu = comp.createObject(main)
             Context.allDesktop()
         }
     }
 
-    Component.onCompleted: {
 
+    Component.onCompleted: {
         flags = Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint | Qt.WA_X11NetWmWindowTypeDesktop
-//        var comp = Qt.createComponent("Menu.qml")
-//        contextMenu = comp.createObject(main)
-        time.start()
         //var newObject = Qt.createQmlObject('import QtQuick 2.7; Rectangle {color: "red"; x: 0; y: 0; width: 80; height: 80; z: 9}', item2, "react");
+        time.start()
     }
 }

@@ -1,11 +1,14 @@
 #include "context.h"
 
+
 QString Context::getImgBackground()
 {
     QDir dir;
     QString path = dir.homePath() + "/.config/Synth/desktop/";
     QSettings settings(path + "settings.txt", QSettings::NativeFormat);
-    return settings.value("background").toString();
+    path = settings.value("background").toString();
+    if (path.isEmpty()) path = "file:///usr/share/backgrounds/default.jpg";
+    return path;
 }
 
 void Context::copy(QString from,QString to)
@@ -93,6 +96,32 @@ void Context::allDesktop()
 
 void Context::terminal()
 {
+    QDir dir;
+    QString path = dir.homePath() + "/.config/Synth/desktop/";
+    QSettings settings(path + "settings.txt", QSettings::NativeFormat);
+    path = settings.value("terminal").toString();
+    if (path.isEmpty())
+    {
+        path = "xfce4-terminal";
+        settings.setValue("terminal", "xfce4-terminal");
+    }
+
     QProcess *process = new QProcess();
-    process->start("xfce4-terminal");
+    process->start(path);
+}
+
+void Context::wallpapers()
+{
+    QProcess *process = new QProcess();
+    process->start("synth-wallpaper");
+}
+
+QString Context::color()
+{
+    QDir dir;
+    QString path = dir.homePath() + "/.config/Synth/panel/";
+    QSettings settings(path + "settings.txt", QSettings::NativeFormat);
+    QString color = settings.value("color").toString();
+    if (color.isEmpty()) color = "#007fff";
+    return color;
 }

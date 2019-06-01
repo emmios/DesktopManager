@@ -1,5 +1,5 @@
 import QtQuick 2.9
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
 import "util.js" as Util
 
 
@@ -8,14 +8,29 @@ ApplicationWindow {
     title: "Neon Painel"
     width: 134
     height: 40 * 6
-    flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup
     color: "transparent"
     visible: false
+    flags: Qt.Tool |Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup
 
     onActiveChanged: {
         if (!active) {
             menu.visible = false
         }
+    }
+
+    Rectangle {
+        id: bgColor
+        color: "#fff"
+        opacity: 0.92
+        radius: 0
+        anchors.fill: parent
+    }
+
+    Image {
+        id: bgImage
+        anchors.fill: parent
+        source: "qrc:/Resources/noise.png"
+        opacity: 0.08
     }
 
     Item {
@@ -90,7 +105,7 @@ ApplicationWindow {
                                 hoverEnabled: true
 
                                 onHoveredChanged: {
-                                     item_select.color = "#007fff"
+                                     item_select.color = Context.color()
                                      text_select.color = "#ffffff"
                                 }
 
@@ -99,7 +114,7 @@ ApplicationWindow {
                                     text_select.color = "#111111"
                                 }
 
-                                onClicked: {
+                                onPressed: {
 
                                     if(mouse.button & Qt.LeftButton) {
 
@@ -112,10 +127,11 @@ ApplicationWindow {
                                         }
 
                                         if (name == "Wallpapers") {
-                                            var component = Qt.createComponent("Background.qml")
-                                            component.createObject(main)
+                                            Context.wallpapers()
                                         }
 
+                                        item_select.color = "transparent"
+                                        text_select.color = "#111111"
                                         menu.visible = false
                                     }
                                 }
@@ -145,15 +161,6 @@ ApplicationWindow {
                     }
                 }
             }
-        }
-
-        Rectangle {
-            id: rectangle2
-            color: "#ffffff"
-            opacity: 0.85
-            radius: 0
-            anchors.fill: parent
-            z: 0
         }
     }
 }
