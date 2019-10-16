@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QDir dir;
-    QString path = dir.homePath() + "/.config/Synth/desktop/";
-    QFile file(path + "settings.txt");
+    QString path = dir.homePath() + "/.config/synth/desktop/";
+    QFile file(path + "settings.conf");
 
     if(!dir.exists(path))
     {
@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
     {
         if (file.open(QIODevice::ReadWrite))
         {
-            QSettings settings(path + "settings.txt", QSettings::NativeFormat);
+            QSettings settings(path + "settings.conf", QSettings::NativeFormat);
             settings.setValue("background", "file:///usr/share/backgrounds/default.jpg");
             settings.setValue("path", "/usr/share/backgrounds");
-            settings.setValue("terminal", "xfce4-terminal");
+            settings.setValue("terminal", "konsole");
         }
 
         file.close();
