@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 QT += core qml quick widgets x11extras dbus
-CONFIG += c++14
+CONFIG += c++11
 
 SOURCES += main.cpp \
     context.cpp \

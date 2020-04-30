@@ -23,12 +23,12 @@
 #include <QWindow>
 #include <QProcess>
 #include <QSettings>
-
+#include <QBuffer>
 
 #include "xlibutil.h"
 
 
-class Context : public QObject
+class Context : public QObject, public Xlibutil
 {
 
     Q_OBJECT
@@ -44,6 +44,8 @@ public:
     Q_INVOKABLE int mouseX();
     Q_INVOKABLE int mouseY();
     Q_INVOKABLE QString color();
+    Q_INVOKABLE void windowMove(QVariant obj, int x, int y, int w, int h);
+    Q_INVOKABLE QString blurEffect(QVariant obj, int screeshot = 1);
     QQmlApplicationEngine *engine;
 
 private:

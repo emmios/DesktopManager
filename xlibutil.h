@@ -46,13 +46,16 @@ public:
     unsigned char* windowProperty(Display *display, Window window, const char *arg, unsigned long *nitems, int *status);
     QString xwindowLauncher(Window window);
     void xaddDesktopFile(int pid, QString arg);
-    QPixmap xwindowIcon(Window window);
+    QPixmap xwindowScreenShot(Window window, bool argb = false);
+    QPixmap xwindowIcon(Window window, QSize size, bool smooth = false);
+    Atom atom(const char* atomName);
     XWindowAttributes attrWindow(Display *display, Window window);
     void resizeWindow(Display *display, Window window, int x, int y, unsigned int w, unsigned int h);
     void xwindowClose(Window window);
     void xchangeProperty(Window window, const char * atom, const char * internalAtom, int format);
     void xchangeProperty(Window window, int atom, const char * internalAtom, int format);
     void openboxChange(Window window, long atom);
+    int xwindowMove(Window win, int x, int y, int w, int h);
     QString xgetWindowFocused();
 
 private:

@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
     //context->window = window;
     Xlibutil util;
-    //util.openboxChange(window->winId(), ALL_DESKTOPS);
+    util.openboxChange(window->winId(), ALL_DESKTOPS);
     util.xchange(window->winId(), "_NET_WM_WINDOW_TYPE_DESKTOP");
 
     return app.exec();

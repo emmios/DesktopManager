@@ -2,7 +2,7 @@
 * @AUTHOR SHENOISZ
 */
 
-var color = "#4a70f5"
+var color = Context.color()//"#4a70f5"
 
 
 function reset() {

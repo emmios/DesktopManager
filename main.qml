@@ -59,7 +59,7 @@ App {
 
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
                     console.log("item", drop.urls.toString().split(','))
-                    Context.copy(drop.urls.toString().split(',')[0], "/home/shenoisz/Desktop/")
+                    Context.copy(drop.urls.toString().split(',')[0], "/home/shenoisz/Área de Trabalho/")
                     drop.acceptProposedAction()
                 }
             }
@@ -79,9 +79,21 @@ App {
         z: 1
         width: 0
         height: 0
-        color: "#5b83f9"
         opacity: 0.3
-        border {width: 2; color: "#3a50e0"}
+        //color: "#5b83f9"
+        color: "#00000000"
+        property string detailColor: Context.color()
+        Rectangle {
+            anchors.fill: parent
+            color: rectangle.detailColor//"#5b83f9"
+            opacity: 0.8
+        }
+        Rectangle {
+            anchors.fill: parent
+            color: "#00000000"
+            border {width: 2; color: rectangle.detailColor }
+        }
+        //border {width: 2; color: Context.color() }//"#3a50e0"}
     }
 
     Rectangle {
@@ -163,6 +175,7 @@ App {
                     }
 
                     multItems.visible = false
+                    rectangle.detailColor = Context.color()
                     rectangle.visible = true
                     rectangle.x = mouseX
                     rectangle.y = mouseY
@@ -316,5 +329,7 @@ App {
         flags = Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint | Qt.WA_X11NetWmWindowTypeDesktop
         //var newObject = Qt.createQmlObject('import QtQuick 2.7; Rectangle {color: "red"; x: 0; y: 0; width: 80; height: 80; z: 9}', item2, "react");
         time.start()
+
+        Context.windowMove(main, 0, 0, Screen.width, Screen.height)
     }
 }

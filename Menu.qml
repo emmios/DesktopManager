@@ -1,23 +1,36 @@
 import QtQuick 2.9
+import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import "util.js" as Util
 
-
-ApplicationWindow {
+Window {
     id: menu
     title: "Neon Painel"
     width: 134
     height: 40 * 6
     color: "transparent"
     visible: false
-    flags: Qt.Tool |Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup
+    flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Popup
+
+    property string detailColor: Context.color()
 
     onActiveChanged: {
         if (!active) {
             menu.visible = false
+        } else {
+            detailColor = Context.color()
+            blur.source = Context.blurEffect(menu, 0)
         }
     }
 
+    onVisibleChanged: {
+        if (visible) {
+            detailColor = Context.color()
+            blur.source = Context.blurEffect(menu, 0)
+        }
+    }
+
+    /*
     Rectangle {
         id: bgColor
         color: "#fff"
@@ -31,6 +44,22 @@ ApplicationWindow {
         anchors.fill: parent
         source: "qrc:/Resources/noise.png"
         opacity: 0.08
+    }*/
+
+    BlurEffect {
+        id: blur
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#333"
+        opacity: 0.5
+    }
+
+    Image {
+        anchors.fill: parent
+        source: "/Resources/noise.png"
+        opacity: 0.1
     }
 
     Item {
@@ -105,13 +134,13 @@ ApplicationWindow {
                                 hoverEnabled: true
 
                                 onHoveredChanged: {
-                                     item_select.color = Context.color()
-                                     text_select.color = "#ffffff"
+                                     item_select.color = detailColor
+                                     //text_select.color = "#ffffff"
                                 }
 
                                 onExited: {
                                     item_select.color = "transparent"
-                                    text_select.color = "#111111"
+                                    //text_select.color = "#111111"
                                 }
 
                                 onPressed: {
@@ -131,7 +160,7 @@ ApplicationWindow {
                                         }
 
                                         item_select.color = "transparent"
-                                        text_select.color = "#111111"
+                                        //text_select.color = "#111111"
                                         menu.visible = false
                                     }
                                 }
@@ -151,9 +180,10 @@ ApplicationWindow {
                                 x: 10
                                 text: name
                                 width: 100
-                                color: "#161616"
+                                color: "#fff"//"#161616"
                                 font.pixelSize: 12
                                 font.family: "roboto light"
+                                font.bold: true
                                 antialiasing: true
                                 anchors.verticalCenter: parent.verticalCenter
                             }
@@ -162,5 +192,12 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#00000000"
+        border { width: 1; color: "#fff" }
+        opacity: 0.2
     }
 }
