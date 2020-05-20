@@ -2,21 +2,36 @@ import QtQuick 2.9
 import QtQuick.Window 2.3
 import QtGraphicalEffects 1.0
 
-
 Rectangle {
-	color: "transparent"
+    color: "#00000000"
 	anchors.fill: parent
 
 	Image {
         id: img
-	    smooth: true
 	    fillMode: Image.PreserveAspectCrop
 	    antialiasing: true
+            smooth: true
 	    visible: false
 	    anchors.fill: parent
             source: image
 	}
 
+    HueSaturation {
+        id: hue
+	x: Screen.width / 2
+	y: Screen.height / 2
+	width: 0
+	height: 0
+        //anchors.fill: img
+        hue: 0.0
+        saturation: 0.5
+        lightness: 0.0
+        source: img
+        antialiasing: true
+        smooth: true
+    }
+
+    /*
 	FastBlur {
 	    id: fastBlur
 	    x: Screen.width / 2
@@ -28,17 +43,17 @@ Rectangle {
 	    //anchors.fill: parent
 	    source: img
 	    radius: 0
-	}
+    }*/
 
-	PropertyAnimation {id: animation; target: fastBlur; property: "width"; to: Screen.width; duration: 300}
-        PropertyAnimation {id: animation2; target: fastBlur; property: "x"; to: 0; duration: 300}
-        PropertyAnimation {id: animation3; target: fastBlur; property: "height"; to: Screen.height; duration: 300}
-        PropertyAnimation {id: animation4; target: fastBlur; property: "y"; to: 0; duration: 300}
+    PropertyAnimation {id: animation; target: hue; property: "width"; to: Screen.width; duration: 300}
+        PropertyAnimation {id: animation2; target: hue; property: "x"; to: 0; duration: 300}
+        PropertyAnimation {id: animation3; target: hue; property: "height"; to: Screen.height; duration: 300}
+        PropertyAnimation {id: animation4; target: hue; property: "y"; to: 0; duration: 300}
 
 	Timer {
             id: wallpaperShow
             running: false
-            interval: 2000
+            interval: 3000
             onTriggered: {
 		    animation.stop()
 		    animation.start()
