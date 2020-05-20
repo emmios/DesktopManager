@@ -32,7 +32,6 @@ App {
     property bool mult: false
     property var contextMenu: null
 
-
     onActiveChanged: {
         if (!active) {
             if (contextMenu !== null) {
