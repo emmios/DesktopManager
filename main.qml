@@ -3,7 +3,6 @@ import QtQuick.Window 2.3
 import "./Components"
 import "util.js" as Util
 
-
 App {
     id: main
     visible: true
@@ -13,7 +12,7 @@ App {
     y: 0
     width: Screen.width
     height: Screen.height
-    color: "transparent"
+    color: "#13051d"
     title: qsTr("Synth-Desktop")
     flags: Qt.Tool | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint | Qt.WA_X11NetWmWindowTypeDesktop
 
@@ -40,11 +39,6 @@ App {
                 contextMenu.visible = false
             }
         }
-    }
-
-    Rectangle {
-        color: "#333"
-        anchors.fill: parent
     }
 
     DropArea {

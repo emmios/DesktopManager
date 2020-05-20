@@ -53,7 +53,7 @@ Rectangle {
 	Timer {
             id: wallpaperShow
             running: false
-            interval: 3000
+            interval: 2000
             onTriggered: {
 		    animation.stop()
 		    animation.start()
